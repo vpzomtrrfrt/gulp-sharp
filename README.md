@@ -1,13 +1,9 @@
-[gulp](http://gulpjs.com/)-sharp
+[gulp](http://gulpjs.com/)-sharp-peer
 =======================================
 
-__This Project Is No Longer Maintained__
-
-Because of other occupation, I can't maintain it anymore. If you find this project usefull, please fork it. Please note that new issues / pr messages will be ignored.
-
-Thanks.
-
 > resize image in your gulp build with [sharp](https://github.com/lovell/sharp)
+
+This is a fork of [rizalp's](https://github.com/rizalp/gulp-sharp) gulp-sharp, modified to use sharp as a peerDependency, so you can use a different version of sharp.
 
 ## Prerequisites
 
