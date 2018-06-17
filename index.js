@@ -54,14 +54,25 @@ var createSharpPipeline = function( opts ) {
     (opts.sharpen) ? ['sharpen', undefined ] : undefined,
     (opts.gamma) ? ['gamma', opts.gamma ] : undefined,
     (opts.grayscale) ? ['grayscale', undefined] : undefined,
-    (opts.withMetadata) ? ['withMetadata', undefined] : undefined,
-    (opts.quality) ? ['quality', opts.quality] : undefined,
-    (opts.progressive) ? ['progressive', undefined] : undefined,
-    (opts.compressionLevel) ? ['compressionLevel', opts.compressionLevel] : undefined
+    (opts.withMetadata) ? ['withMetadata', undefined] : undefined
   ];
 
   // remove task that is undefined
   pipeline = _.compact(pipeline);
+
+  if (opts.output) {
+
+    // create opts manually to preserve consistency
+    opts[opts.output] = [
+      (opts.quality) ? ['quality', opts.quality] : undefined,
+      (opts.progressive) ? ['progressive', undefined] : undefined,
+      (opts.compressionLevel) ? ['compressionLevel', opts.compressionLevel] : undefined
+    ];
+
+    // remove opts that is undefined
+    opts[opts.output] = _.compact(opts[opts.output]);
+
+  }
 
   return function( file ){
 
@@ -80,7 +91,7 @@ var createSharpPipeline = function( opts ) {
     }, input);
 
     if (opts.output) {
-      transform = transform[opts.output]();
+      transform = transform[opts.output](opts[opts.output]);
     }
 
     promises = transform.toBuffer();
